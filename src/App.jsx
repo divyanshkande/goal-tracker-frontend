@@ -1,19 +1,22 @@
-// App.jsx
-import GoalList from './components/GoalList'
+import { useState } from "react";
+import GoalList from "./components/GoalList";
+import GoalForm from "./components/GoalForm";
 
 function App() {
-  const goals = [
-    { id: 1, title: "Learn React", description: "Complete 3 React tutorials", completed: false },
-    { id: 2, title: "Workout", description: "Do 30 mins cardio", completed: true },
-    { id: 3, title: "Read a Book", description: "Read 20 pages", completed: false },
-  ];
+  const [goals, setGoals] = useState([]);
+
+  const addGoalHandler = (goalText) => {
+    const newGoal = {
+      id: Date.now(),
+      text: goalText,
+    };
+    setGoals((prevGoals) => [newGoal, ...prevGoals]);
+  };
 
   return (
-    // App.jsx
-<div className="min-h-screen flex flex-col items-center justify-start p-6 bg-white">
-
-      <h1 className="text-3xl font-bold mb-6">🎯 Goal Tracker</h1>
-
+    <div className="p-4 text-center min-h-screen bg-gray-100">
+      <h1 className="text-3xl font-bold mb-4">🎯 Goal Tracker</h1>
+      <GoalForm onAddGoal={addGoalHandler} />
       <GoalList goals={goals} />
     </div>
   );

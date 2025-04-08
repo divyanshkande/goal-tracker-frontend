@@ -1,7 +1,10 @@
 {
   "name": "goal-tracker-frontend",
+<<<<<<< HEAD
   
   
+=======
+>>>>>>> 5170758e160f6b20ac523b8a167e47ba8651145f
   "version": "0.0.1",
   "scripts": {
     "dev": "vite",

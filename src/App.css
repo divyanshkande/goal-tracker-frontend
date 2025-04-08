@@ -1,10 +1,22 @@
+/* Center the whole app using Flexbox */
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff; /* Set background to white */
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+/* Center content inside the root container */
 #root {
   max-width: 1280px;
-  margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
 
+/* Logo styles */
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -18,6 +30,7 @@
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
 
+/* Logo spin animation */
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -33,10 +46,12 @@
   }
 }
 
+/* Card container */
 .card {
   padding: 2em;
 }
 
+/* Docs link styling */
 .read-the-docs {
   color: #888;
 }

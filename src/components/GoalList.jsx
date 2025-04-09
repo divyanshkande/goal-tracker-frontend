@@ -1,14 +1,23 @@
+import React, { useState } from "react";
+import GoalForm from "./GoalForm";
 import GoalCard from "./GoalCard";
 
-const GoalList = ({ goals }) => {
-  if (goals.length === 0) {
-    return <p className="text-gray-600 mt-6">No goals added yet.</p>;
-  }
+const GoalList = () => {
+  const [goals, setGoals] = useState([]);
+
+  const handleAddGoal = (goal) => {
+    setGoals((prevGoals) => [...prevGoals, goal]);
+  };
+
+  const handleDeleteGoal = (id) => {
+    setGoals((prevGoals) => prevGoals.filter((goal) => goal.id !== id));
+  };
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6 px-4">
+    <div className="max-w-xl mx-auto">
+      <GoalForm onAddGoal={handleAddGoal} />
       {goals.map((goal) => (
-        <GoalCard key={goal.id} goal={goal} />
+        <GoalCard key={goal.id} goal={goal} onDelete={handleDeleteGoal} />
       ))}
     </div>
   );

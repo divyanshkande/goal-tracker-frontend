@@ -1,23 +1,15 @@
-import React, { useState } from "react";
-import GoalForm from "./GoalForm";
+import React from "react";
 import GoalCard from "./GoalCard";
 
-const GoalList = () => {
-  const [goals, setGoals] = useState([]);
-
-  const handleAddGoal = (goal) => {
-    setGoals((prevGoals) => [...prevGoals, goal]);
-  };
-
-  const handleDeleteGoal = (id) => {
-    setGoals((prevGoals) => prevGoals.filter((goal) => goal.id !== id));
-  };
+const GoalList = ({ goals, onDelete }) => {
+  if (!goals || goals.length === 0) {
+    return <p className="text-center text-gray-500">No goals added yet.</p>;
+  }
 
   return (
-    <div className="max-w-xl mx-auto">
-      <GoalForm onAddGoal={handleAddGoal} />
+    <div className="space-y-4">
       {goals.map((goal) => (
-        <GoalCard key={goal.id} goal={goal} onDelete={handleDeleteGoal} />
+        <GoalCard key={goal.id} goal={goal} onDelete={onDelete} />
       ))}
     </div>
   );

@@ -6,7 +6,6 @@ const GoalForm = ({ onAddGoal }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (!title.trim() || !description.trim()) return;
 
     const newGoal = {
@@ -15,30 +14,29 @@ const GoalForm = ({ onAddGoal }) => {
       description,
     };
 
-    onAddGoal(newGoal); // 🔥 lifts state up
-
+    onAddGoal(newGoal); // send data to App
     setTitle("");
     setDescription("");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-4">
+    <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
       <input
         type="text"
-        placeholder="Goal title"
+        placeholder="Goal Title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="border p-2 w-full mb-2 rounded"
+        className="flex-1 p-2 border border-gray-300 rounded"
       />
       <textarea
-        placeholder="Goal description"
+        placeholder="Goal Description"
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        className="border p-2 w-full mb-2 rounded"
+        className="flex-1 p-2 border border-gray-300 rounded"
       />
       <button
         type="submit"
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        className="bg-black text-white px-4 py-2 rounded border-2 border-black hover:bg-white hover:text-black"
       >
         Add Goal
       </button>

@@ -1,41 +1,54 @@
 import React, { useEffect, useState } from "react";
-import GoalList from "./components/GoalList";
-import { fetchGoals, deleteGoal } from "./api/goalService";
+import GoalForm from "./components/GoalForm";
 
-function App() {
+import GoalList from "./components/GoalList";
+
+const App = () => {
   const [goals, setGoals] = useState([]);
 
+  // Load goals from backend
   useEffect(() => {
-    const getGoals = async () => {
-      try {
-        const response = await fetchGoals();
-        console.log("GOALS FROM BACKEND 👉", response.data); // ✅ See what comes from backend
-        setGoals(response.data);
-      } catch (error) {
-        console.error("Error fetching goals:", error);
-      }
-    };
-
-    getGoals();
+    fetch("http://localhost:8080/api/goals")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Fetched goals:", data);
+        setGoals(data);
+      })
+      .catch((err) => console.error("Error loading goals:", err));
   }, []);
 
-  const handleDelete = async (id) => {
-    try {
-      await deleteGoal(id);
-      setGoals(goals.filter((goal) => goal.id !== id));
-    } catch (error) {
-      console.error("Error deleting goal:", error);
-    }
+  // Add goal to backend and update UI
+  const handleAddGoal = (goalData) => {
+    fetch("http://localhost:8080/api/goals", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(goalData),
+    })
+      .then((res) => res.json())
+      .then((savedGoal) => {
+        console.log("New goal added:", savedGoal);
+        setGoals((prev) => [...prev, savedGoal]);
+      })
+      .catch((err) => console.error("Error adding goal:", err));
+  };
+
+  const handleDeleteGoal = (id) => {
+    fetch(`http://localhost:8080/api/goals/${id}`, {
+      method: "DELETE",
+    })
+      .then(() => {
+        setGoals((prev) => prev.filter((goal) => goal.id !== id));
+      })
+      .catch((err) => console.error("Error deleting goal:", err));
   };
 
   return (
-    <div className="p-4 max-w-xl mx-auto">
-      <h1 className="text-3xl font-bold text-center mb-4">Goal Tracker</h1>
-
-      {/* ✅ Make sure you're passing goals and onDelete */}
-      <GoalList goals={goals} onDelete={handleDelete} />
+    <div className="max-w-3xl mx-auto mt-8 p-4">
+      <h1 className="text-3xl font-bold mb-4 text-center">🎯 Goal Tracker</h1>
+      <GoalForm onAdd={handleAddGoal} />
+      <GoalList goals={goals} onDelete={handleDeleteGoal} />
     </div>
   );
-}
+};
 
 export default App;

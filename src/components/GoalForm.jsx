@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const GoalForm = ({ onAddGoal }) => {
+const GoalForm = ({ onAdd }) => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
@@ -9,12 +9,12 @@ const GoalForm = ({ onAddGoal }) => {
     if (!title.trim() || !description.trim()) return;
 
     const newGoal = {
-      id: Date.now(),
       title,
       description,
+      completed: false,
     };
 
-    onAddGoal(newGoal); // send data to App
+    onAdd(newGoal); // Send to parent
     setTitle("");
     setDescription("");
   };

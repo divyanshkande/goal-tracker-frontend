@@ -42,6 +42,22 @@ const App = () => {
       .catch((err) => console.error("Error deleting goal:", err));
   };
 
+  const handleUpdateGoal = (id, updatedGoal) => {
+    fetch(`http://localhost:8080/api/goals/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedGoal),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setGoals((prev) =>
+          prev.map((goal) => (goal.id === id ? data : goal))
+        );
+      })
+      .catch((err) => console.error("Error updating goal:", err));
+  };
+  
+
   // ✅ Toggle goal completion
   const handleToggleComplete = (id) => {
     const goalToUpdate = goals.find((g) => g.id === id);
@@ -66,11 +82,12 @@ const App = () => {
     <div className="max-w-3xl mx-auto mt-8 p-4">
       <h1 className="text-3xl font-bold mb-4 text-center">🎯 Goal Tracker</h1>
       <GoalForm onAdd={handleAddGoal} />
-      <GoalList
-        goals={goals}
-        onDelete={handleDeleteGoal}
-        onToggle={handleToggleComplete}
-      />
+      <GoalList 
+  goals={goals} 
+  onDelete={handleDeleteGoal} 
+  onUpdate={handleUpdateGoal} 
+/>
+
     </div>
   );
 };

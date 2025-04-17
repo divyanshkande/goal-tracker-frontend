@@ -1,23 +1,13 @@
 import React from "react";
 import GoalCard from "./GoalCard";
 
-const GoalList = ({ goals, onDelete, onToggle }) => {
+const GoalList = ({ goals, onDelete, onUpdate }) => {
   return (
     <div>
-      {goals.length === 0 ? (
-        <p className="text-center text-gray-500 mt-4">No goals added yet.</p>
-      ) : (
-        goals.map((goal) => (
-          <GoalCard
-            key={goal.id}
-            goal={goal}
-            onDelete={onDelete}
-            onToggle={onToggle}
-          />
-        ))
-      )}
+      {goals.map((goal) => (
+        <GoalCard key={goal.id} goal={goal} onDelete={onDelete} onUpdate={onUpdate} />
+      ))}
     </div>
   );
 };
-
 export default GoalList;

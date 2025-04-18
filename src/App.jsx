@@ -42,8 +42,8 @@ const App = () => {
       .catch((err) => console.error("Error deleting goal:", err));
   };
 
-  const handleUpdateGoal = (id, updatedGoal) => {
-    fetch(`http://localhost:8080/api/goals/${id}`, {
+  const handleUpdateGoal = (updatedGoal) => {
+    fetch(`http://localhost:8080/api/goals/${updatedGoal.id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedGoal),
@@ -51,7 +51,7 @@ const App = () => {
       .then((res) => res.json())
       .then((data) => {
         setGoals((prev) =>
-          prev.map((goal) => (goal.id === id ? data : goal))
+          prev.map((goal) => (goal.id === data.id ? data : goal))
         );
       })
       .catch((err) => console.error("Error updating goal:", err));

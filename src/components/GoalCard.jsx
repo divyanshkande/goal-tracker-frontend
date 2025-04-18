@@ -1,51 +1,34 @@
-
-
-import React, { useState } from 'react';
-
+import React from "react";
 
 const GoalCard = ({ goal, onDelete, onUpdate }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedTitle, setEditedTitle] = useState(goal.title);
-  const [editedDescription, setEditedDescription] = useState(goal.description);
-
-  const handleSave = () => {
-    onUpdate(goal.id, {
-      title: editedTitle,
-      description: editedDescription,
-    });
-    setIsEditing(false);
+  const handleToggleComplete = () => {
+    const updatedGoal = { ...goal, completed: !goal.completed };
+    onUpdate(updatedGoal);
   };
 
   return (
-    <div className="border p-4 rounded shadow mb-4">
-      {isEditing ? (
-        <>
+    <div className="bg-white p-4 rounded shadow mb-2">
+      <h3 className={`text-xl font-semibold ${goal.completed ? "line-through text-gray-500" : ""}`}>
+        {goal.title}
+      </h3>
+      <p>{goal.description}</p>
+      <div className="mt-2 flex gap-2 items-center">
+        <button
+          onClick={() => onDelete(goal.id)}
+          className="bg-red-500 text-white px-2 py-1 rounded"
+        >
+          Delete
+        </button>
+
+        <label className="flex items-center gap-1">
           <input
-            value={editedTitle}
-            onChange={(e) => setEditedTitle(e.target.value)}
-            className="border p-1 w-full mb-2"
+            type="checkbox"
+            checked={goal.completed}
+            onChange={handleToggleComplete}
           />
-          <textarea
-            value={editedDescription}
-            onChange={(e) => setEditedDescription(e.target.value)}
-            className="border p-1 w-full mb-2"
-          />
-          <button onClick={handleSave} className="bg-blue-500 text-white px-2 py-1 rounded mr-2">
-            Save
-          </button>
-        </>
-      ) : (
-        <>
-          <h3 className="text-xl font-semibold">{goal.title}</h3>
-          <p>{goal.description}</p>
-        </>
-      )}
-      <button onClick={() => onDelete(goal.id)} className="text-red-500 mr-2">
-        Delete
-      </button>
-      <button onClick={() => setIsEditing(!isEditing)} className="text-blue-500">
-        {isEditing ? "Cancel" : "Edit"}
-      </button>
+          Completed
+        </label>
+      </div>
     </div>
   );
 };

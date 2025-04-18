@@ -42,6 +42,25 @@ const App = () => {
       .catch((err) => console.error("Error deleting goal:", err));
   };
 
+  const handleToggleGoal = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/goals/${id}/toggle`, {
+        method: "PATCH",
+      });
+      if (response.ok) {
+        const updatedGoal = await response.json();
+        setGoals((prevGoals) =>
+          prevGoals.map((goal) =>
+            goal.id === id ? updatedGoal : goal
+          )
+        );
+      }
+    } catch (error) {
+      console.error("Error toggling goal completion", error);
+    }
+  };
+  
+
   const handleUpdateGoal = (updatedGoal) => {
     fetch(`http://localhost:8080/api/goals/${updatedGoal.id}`, {
       method: "PUT",
@@ -58,25 +77,8 @@ const App = () => {
   };
   
 
-  // ✅ Toggle goal completion
-  const handleToggleComplete = (id) => {
-    const goalToUpdate = goals.find((g) => g.id === id);
-    const updatedGoal = { ...goalToUpdate, completed: !goalToUpdate.completed };
-
-    fetch(`http://localhost:8080/api/goals/${id}`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updatedGoal),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Goal updated:", data);
-        setGoals((prev) =>
-          prev.map((goal) => (goal.id === id ? data : goal))
-        );
-      })
-      .catch((err) => console.error("Error updating goal:", err));
-  };
+  
+  
 
   return (
     <div className="max-w-3xl mx-auto mt-8 p-4">

@@ -20,14 +20,12 @@ const GoalCard = ({ goal, onDelete, onUpdate }) => {
           Delete
         </button>
 
-        <label className="flex items-center gap-1">
-          <input
-            type="checkbox"
-            checked={goal.completed}
-            onChange={handleToggleComplete}
-          />
-          Completed
-        </label>
+        <input
+          type="checkbox"
+          checked={goal.completed}
+          onChange={handleToggleComplete}
+        />
+        <label className="ml-2">Completed</label>
       </div>
     </div>
   );

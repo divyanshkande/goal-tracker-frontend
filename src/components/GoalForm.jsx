@@ -14,29 +14,35 @@ const GoalForm = ({ onAdd }) => {
       completed: false,
     };
 
-    onAdd(newGoal); // Send to parent
+    onAdd(newGoal);
     setTitle("");
     setDescription("");
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex gap-2 mb-4">
+    <form
+      onSubmit={handleSubmit}
+      className="bg-white p-5 rounded-2xl shadow-md mb-6 space-y-4 sm:space-y-0 sm:flex sm:gap-4 sm:items-center"
+    >
       <input
         type="text"
-        placeholder="Goal Title"
+        placeholder="Enter goal title..."
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        className="flex-1 p-2 border border-gray-300 rounded"
+        className="flex-1 border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
+
       <textarea
-        placeholder="Goal Description"
+        placeholder="Enter goal description..."
         value={description}
         onChange={(e) => setDescription(e.target.value)}
-        className="flex-1 p-2 border border-gray-300 rounded"
+        rows={2}
+        className="flex-1 border border-gray-300 rounded-lg px-4 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
+
       <button
         type="submit"
-        className="bg-black text-white px-4 py-2 rounded border-2 border-black hover:bg-white hover:text-black"
+        className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-lg transition"
       >
         Add Goal
       </button>

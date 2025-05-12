@@ -14,5 +14,4 @@ export const createGoal = async (goalData) => {
     }
 };
 
-// You can also export other functions if needed
-// export const getGoals = async () => { ... };
+

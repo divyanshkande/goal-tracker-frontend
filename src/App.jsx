@@ -1,20 +1,22 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage"; // ✅ Add this
 import ProtectedRoute from "./components/ProtectedRoute";
-import Dashboard from './pages/Dashboard'; 
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
     <Router>
       <Routes>
-        {/* 🔁 Redirect root path to login */}
+        {/* Redirect from root to login page */}
         <Route path="/" element={<Navigate to="/login" />} />
 
-        {/* Public Route */}
+        {/* Public Routes */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
 
-        {/* Protected Route for /home */}
+        {/* Protected Routes */}
         <Route
           path="/home"
           element={
@@ -24,7 +26,6 @@ function App() {
           }
         />
 
-        {/* You can choose whether dashboard is protected or public */}
         <Route
           path="/dashboard"
           element={
